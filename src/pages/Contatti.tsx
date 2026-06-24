@@ -1,22 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import { SITE } from "@/lib/site";
 import { Phone, Mail, MessageCircle, Send, Clock } from "lucide-react";
 
-export const Route = createFileRoute("/contatti")({
-  head: () => ({
-    meta: [
-      { title: "Contatti — Visure Rapide" },
-      { name: "description", content: "Contatta Visure Rapide via telefono, WhatsApp, Telegram o email. Lun–Ven 9:00–18:00." },
-      { property: "og:title", content: "Contatti — Visure Rapide" },
-      { property: "og:description", content: "Telefono, WhatsApp, Telegram, email — siamo a tua disposizione." },
-      { property: "og:url", content: "/contatti" },
-    ],
-    links: [{ rel: "canonical", href: "/contatti" }],
-  }),
-  component: Contatti,
-});
-
-function Contatti() {
+export default function Contatti() {
   const items = [
     { Icon: Phone, label: "Cellulare", value: SITE.phone, href: `tel:${SITE.phone.replace(/\s/g, "")}` },
     { Icon: Phone, label: "Telefono fisso", value: SITE.phoneLandline, href: `tel:${SITE.phoneLandline.replace(/\s/g, "")}` },

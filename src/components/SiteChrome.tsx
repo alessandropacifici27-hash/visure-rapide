@@ -1,6 +1,6 @@
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { SITE } from "@/lib/site";
 
 const NAV = [
@@ -10,9 +10,19 @@ const NAV = [
   { to: "/contatti", label: "Contatti" },
 ] as const;
 
+export function SiteChrome({ children }: { children: ReactNode }) {
+  return (
+    <>
+      <SiteHeader />
+      <main className="pt-16">{children}</main>
+      <SiteFooter />
+    </>
+  );
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const { pathname } = useLocation();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/40 bg-background/70 backdrop-blur-xl">

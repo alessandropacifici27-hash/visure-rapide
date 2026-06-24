@@ -1,21 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { ShieldCheck, Users, Zap, Award } from "lucide-react";
 
-export const Route = createFileRoute("/chi-siamo")({
-  head: () => ({
-    meta: [
-      { title: "Chi Siamo — Visure Rapide" },
-      { name: "description", content: "Visure Rapide è un servizio professionale per richiedere visure catastali, ipotecarie, camerali e PRA in modo semplice e veloce." },
-      { property: "og:title", content: "Chi Siamo — Visure Rapide" },
-      { property: "og:description", content: "Scopri chi siamo e come ti aiutiamo a ottenere visure ufficiali in modo rapido e professionale." },
-      { property: "og:url", content: "/chi-siamo" },
-    ],
-    links: [{ rel: "canonical", href: "/chi-siamo" }],
-  }),
-  component: ChiSiamo,
-});
-
-function ChiSiamo() {
+export default function ChiSiamo() {
   return (
     <>
       <section className="border-b border-border/40 bg-card/20">
@@ -78,8 +64,7 @@ function ChiSiamo() {
             in tempi rapidissimi con preventivo dettagliato.
           </p>
           <Link
-            to="/"
-            hash="richiedi"
+            to="/#richiedi"
             className="mt-8 inline-block rounded-full bg-[image:var(--gradient-brand)] px-7 py-3 text-sm text-primary-foreground shadow-[var(--shadow-glow)]"
           >
             Vai al modulo

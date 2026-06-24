@@ -1,23 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { VisuraForm } from "@/components/VisuraForm";
 import { VISURE_TYPES, SITE } from "@/lib/site";
-import heroAsset from "@/assets/hero-bg.jpg.asset.json";
 import { ArrowRight, Clock, ShieldCheck, Sparkles, FileSearch, Building2, Landmark, Car } from "lucide-react";
-
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Visure Rapide — Visure catastali, ipotecarie, camerali e PRA online" },
-      { name: "description", content: "Richiedi online visure catastali, ipotecarie, camerali e PRA. Servizio professionale, evasione rapida e prezzi trasparenti." },
-      { property: "og:title", content: "Visure Rapide — Visure professionali online" },
-      { property: "og:description", content: "Visure catastali, ipotecarie, camerali e PRA. Compila il form, riceverai la tua visura in tempi rapidi." },
-      { property: "og:url", content: "/" },
-      { property: "og:type", content: "website" },
-    ],
-    links: [{ rel: "canonical", href: "/" }],
-  }),
-  component: Home,
-});
 
 const ICONS = {
   catastale: FileSearch,
@@ -26,22 +10,14 @@ const ICONS = {
   pra: Car,
 } as const;
 
-function Home() {
+export default function Home() {
   return (
     <>
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <img
-            src={heroAsset.url}
-            alt="Studio notarile con documenti immobiliari"
-            className="h-full w-full object-cover opacity-85"
-            width={1920}
-            height={1280}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/35 to-background" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_oklch(0.20_0.014_240/0.75)_85%)]" />
-        </div>
+        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-background to-brand/10" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/55 via-background/35 to-background" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_oklch(0.20_0.014_240/0.75)_85%)]" />
 
         <div className="mx-auto flex min-h-[88vh] max-w-5xl flex-col items-center justify-center px-6 py-24 text-center">
           <div className="flex items-center gap-3 text-xs uppercase tracking-[0.32em] text-brand">

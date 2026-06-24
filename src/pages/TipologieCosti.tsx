@@ -1,22 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { VISURE_TYPES } from "@/lib/site";
 import { Check } from "lucide-react";
 
-export const Route = createFileRoute("/tipologie-e-costi")({
-  head: () => ({
-    meta: [
-      { title: "Tipologie di Visure e Costi — Visure Rapide" },
-      { name: "description", content: "Tutte le visure disponibili: catastali, ipotecarie, camerali e PRA. Listino trasparente con prezzi a partire da pochi euro." },
-      { property: "og:title", content: "Tipologie di Visure e Costi — Visure Rapide" },
-      { property: "og:description", content: "Listino trasparente per visure catastali, ipotecarie, camerali e PRA." },
-      { property: "og:url", content: "/tipologie-e-costi" },
-    ],
-    links: [{ rel: "canonical", href: "/tipologie-e-costi" }],
-  }),
-  component: Tipologie,
-});
-
-function Tipologie() {
+export default function TipologieCosti() {
   return (
     <>
       <section className="border-b border-border/40 bg-card/20">
@@ -63,8 +49,7 @@ function Tipologie() {
               </ul>
 
               <Link
-                to="/"
-                hash="richiedi"
+                to="/#richiedi"
                 className="mt-7 inline-block rounded-full border border-brand/50 px-5 py-2 text-xs uppercase tracking-[0.16em] text-brand transition hover:bg-brand hover:text-primary-foreground"
               >
                 Richiedi questa visura
