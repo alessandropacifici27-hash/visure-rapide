@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { VISURE_TYPES, SITE, type VisuraSlug } from "@/lib/site";
 import { CheckCircle2, Send } from "lucide-react";
 
