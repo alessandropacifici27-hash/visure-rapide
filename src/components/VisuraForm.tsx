@@ -107,6 +107,20 @@ Totale stimato: € ${totalPrice}`;
         </Field>
       </div>
 
+      <div className="mt-6 flex items-start gap-3 rounded-xl border border-border/60 bg-background/40 p-4">
+        <Checkbox
+          id="spiegazione"
+          checked={phone2}
+          onCheckedChange={(c) => setSp2(c === true)}
+          className="mt-0.5"
+        />
+        <label htmlFor="spiegazione" className="cursor-pointer text-sm leading-relaxed text-foreground">
+          <span className="font-medium">Richiedi spiegazione telefonica</span> — ricevi una chiamata per spiegarti i contenuti della visura.
+          <br />
+          <span className="text-xs text-muted-foreground">Orario in giornata da concordare · supplemento € 5</span>
+        </label>
+      </div>
+
       <p className="mt-5 text-xs text-muted-foreground">
         Inviando il form accetti di essere contattato/a per evadere la richiesta. I tuoi dati non vengono usati a fini commerciali.
       </p>
