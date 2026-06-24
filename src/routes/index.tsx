@@ -34,13 +34,13 @@ function Home() {
         <div className="absolute inset-0 -z-10">
           <img
             src={heroAsset.url}
-            alt=""
-            className="h-full w-full object-cover opacity-55"
+            alt="Studio notarile con documenti immobiliari"
+            className="h-full w-full object-cover opacity-85"
             width={1920}
             height={1280}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/60 to-background" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_oklch(0.16_0.012_240/0.85)_70%)]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/55 via-background/35 to-background" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_20%,_oklch(0.20_0.014_240/0.75)_85%)]" />
         </div>
 
         <div className="mx-auto flex min-h-[88vh] max-w-5xl flex-col items-center justify-center px-6 py-24 text-center">
