@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { VISURE_TYPES, SITE, type VisuraSlug } from "@/lib/site";
 import { CheckCircle2, Send } from "lucide-react";
 
 export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
   const [submitted, setSubmitted] = useState(false);
+  const [phone2, setSp2] = useState(false);
   const [form, setForm] = useState({
     nome: "",
     email: "",
@@ -13,11 +15,17 @@ export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
     note: "",
   });
 
+  const basePrice = VISURE_TYPES.find((v) => v.slug === form.tipo)?.priceFrom ?? 0;
+  const totalPrice = basePrice + (phone2 ? 5 : 0);
+
   const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm({ ...form, [k]: e.target.value });
 
   const buildMessage = () => {
     const tipo = VISURE_TYPES.find((v) => v.slug === form.tipo)?.label ?? form.tipo;
+    const spiegazione = phone2
+      ? "Sì (+€5)\nOrario telefonico da concordare in giornata"
+      : "No";
     return `Nuova richiesta visura — ${tipo}
 
 Nome: ${form.nome}
@@ -28,7 +36,11 @@ Dati per la visura:
 ${form.dettagli}
 
 Note:
-${form.note || "—"}`;
+${form.note || "—"}
+
+Spiegazione telefonica: ${spiegazione}
+
+Totale stimato: € ${totalPrice}`;
   };
 
   const onSubmit = (e: React.FormEvent) => {
@@ -93,6 +105,20 @@ ${form.note || "—"}`;
         <Field label="Note aggiuntive" full>
           <textarea value={form.note} onChange={update("note")} rows={2} className="input" placeholder="Eventuali precisazioni" />
         </Field>
+      </div>
+
+      <div className="mt-6 flex items-start gap-3 rounded-xl border border-border/60 bg-background/40 p-4">
+        <Checkbox
+          id="spiegazione"
+          checked={phone2}
+          onCheckedChange={(c) => setSp2(c === true)}
+          className="mt-0.5"
+        />
+        <label htmlFor="spiegazione" className="cursor-pointer text-sm leading-relaxed text-foreground">
+          <span className="font-medium">Richiedi spiegazione telefonica</span> — ricevi una chiamata per spiegarti i contenuti della visura.
+          <br />
+          <span className="text-xs text-muted-foreground">Orario in giornata da concordare · supplemento € 5</span>
+        </label>
       </div>
 
       <p className="mt-5 text-xs text-muted-foreground">
