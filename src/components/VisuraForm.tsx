@@ -23,6 +23,9 @@ export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
 
   const buildMessage = () => {
     const tipo = VISURE_TYPES.find((v) => v.slug === form.tipo)?.label ?? form.tipo;
+    const spiegazione = phone2
+      ? "Sì (+€5)\nOrario telefonico da concordare in giornata"
+      : "No";
     return `Nuova richiesta visura — ${tipo}
 
 Nome: ${form.nome}
@@ -33,7 +36,11 @@ Dati per la visura:
 ${form.dettagli}
 
 Note:
-${form.note || "—"}`;
+${form.note || "—"}
+
+Spiegazione telefonica: ${spiegazione}
+
+Totale stimato: € ${totalPrice}`;
   };
 
   const onSubmit = (e: React.FormEvent) => {
