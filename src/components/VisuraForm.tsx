@@ -16,7 +16,7 @@ export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
   });
 
   const basePrice = VISURE_TYPES.find((v) => v.slug === form.tipo)?.priceFrom ?? 0;
-  const totalPrice = basePrice + (sp2 ? 5 : 0);
+  const totalPrice = basePrice + (phone2 ? 5 : 0);
 
   const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
     setForm({ ...form, [k]: e.target.value });
