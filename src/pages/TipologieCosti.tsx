@@ -14,8 +14,7 @@ export default function TipologieCosti() {
           </h1>
           <p className="mt-6 text-muted-foreground md:text-lg">
             Tariffe minime ufficiali per ogni tipologia, così come stabilite dall'ente
-            competente. Il preventivo finale, comprensivo del nostro servizio, verrà
-            comunicato dopo la verifica della richiesta.
+            competente (Agenzia delle Entrate, Camera di Commercio o ACI).
           </p>
         </div>
       </section>
