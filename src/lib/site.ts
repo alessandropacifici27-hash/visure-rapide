@@ -1,5 +1,3 @@
-bash
-cat << 'EOF'
 export const SITE = {
   name: "Visure Rapide",
   domain: "visurerapide.it",
