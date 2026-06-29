@@ -87,7 +87,7 @@ export default function Home() {
                 <h3 className="font-serif text-2xl">{v.label}</h3>
                 <p className="mt-3 text-sm text-muted-foreground">{v.description}</p>
                 <p className="mt-5 text-xs uppercase tracking-[0.18em] text-brand">
-                  Da {formatEuro(v.priceFrom)}
+                  {v.priceFrom === null ? "Su richiesta" : `Da ${formatEuro(v.priceFrom)}`}
                 </p>
                 <div className="hairline mt-5" />
               </div>
