@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { VISURE_TYPES, SITE, type VisuraSlug } from "@/lib/site";
+import { formatEuro } from "@/lib/utils";
 import { CheckCircle2, Send } from "lucide-react";
 
 export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
@@ -9,6 +10,7 @@ export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
   const [form, setForm] = useState({
     nome: "",
     email: "",
+    deliveryPreference: "email" as "email" | "whatsapp",
     telefono: "",
     tipo: defaultType ?? VISURE_TYPES[0].slug,
     dettagli: "",
@@ -23,6 +25,7 @@ export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
 
   const buildMessage = () => {
     const tipo = VISURE_TYPES.find((v) => v.slug === form.tipo)?.label ?? form.tipo;
+    const deliveryLabel = form.deliveryPreference === "email" ? "Email" : "WhatsApp";
     const spiegazione = phone2
       ? "Sì (+€5)\nOrario telefonico da concordare in giornata"
       : "No";
@@ -31,6 +34,7 @@ export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
 Nome: ${form.nome}
 Email: ${form.email}
 Telefono: ${form.telefono}
+Preferenza di consegna: ${deliveryLabel}
 
 Dati per la visura:
 ${form.dettagli}
@@ -40,13 +44,14 @@ ${form.note || "—"}
 
 Spiegazione telefonica: ${spiegazione}
 
-Totale stimato: € ${totalPrice}`;
+Totale stimato: ${formatEuro(totalPrice)}`;
   };
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const body = buildMessage();
-    const subject = `Richiesta visura: ${VISURE_TYPES.find((v) => v.slug === form.tipo)?.label}`;
+    const deliveryLabel = form.deliveryPreference === "email" ? "Email" : "WhatsApp";
+    const subject = `Richiesta visura: ${VISURE_TYPES.find((v) => v.slug === form.tipo)?.label} — Preferenza di consegna: ${deliveryLabel}`;
     window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSubmitted(true);
   };
@@ -81,6 +86,29 @@ Totale stimato: € ${totalPrice}`;
         </Field>
         <Field label="Email *">
           <input required type="email" value={form.email} onChange={update("email")} className="input" placeholder="mario@email.it" />
+        </Field>
+        <Field label="Come preferisci ricevere le visure?" full>
+          <div className="flex flex-wrap gap-2">
+            {(
+              [
+                { value: "email", label: "Email" },
+                { value: "whatsapp", label: "WhatsApp" },
+              ] as const
+            ).map((opt) => (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setForm({ ...form, deliveryPreference: opt.value })}
+                className={`rounded-full border px-5 py-2 text-sm transition ${
+                  form.deliveryPreference === opt.value
+                    ? "border-brand bg-brand text-primary-foreground"
+                    : "border-border text-muted-foreground hover:border-brand/50 hover:text-brand"
+                }`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
         </Field>
         <Field label="Telefono *">
           <input required value={form.telefono} onChange={update("telefono")} className="input" placeholder="+39 ..." />

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { VisuraForm } from "@/components/VisuraForm";
 import { VISURE_TYPES, SITE } from "@/lib/site";
+import { formatEuro } from "@/lib/utils";
 import { ArrowRight, Clock, ShieldCheck, Sparkles, FileSearch, Building2, Landmark, Car } from "lucide-react";
 
 const ICONS = {
@@ -86,7 +87,7 @@ export default function Home() {
                 <h3 className="font-serif text-2xl">{v.label}</h3>
                 <p className="mt-3 text-sm text-muted-foreground">{v.description}</p>
                 <p className="mt-5 text-xs uppercase tracking-[0.18em] text-brand">
-                  Da € {v.priceFrom}
+                  Da {formatEuro(v.priceFrom)}
                 </p>
                 <div className="hairline mt-5" />
               </div>

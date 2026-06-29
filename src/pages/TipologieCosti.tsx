@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { VISURE_TYPES } from "@/lib/site";
+import { formatEuro } from "@/lib/utils";
 import { Check } from "lucide-react";
 
 export default function TipologieCosti() {
@@ -12,9 +13,9 @@ export default function TipologieCosti() {
             Listino <span className="brand-gradient-text italic">trasparente</span>
           </h1>
           <p className="mt-6 text-muted-foreground md:text-lg">
-            I prezzi indicati sono base e comprendono diritti, bolli e nostro onorario per
-            la maggior parte delle richieste standard. Per visure complesse o ricerche
-            articolate ti forniremo un preventivo dettagliato prima di procedere.
+            Tariffe minime ufficiali per ogni tipologia, così come stabilite dall'ente
+            competente. Il preventivo finale, comprensivo del nostro servizio, verrà
+            comunicato dopo la verifica della richiesta.
           </p>
         </div>
       </section>
@@ -33,17 +34,23 @@ export default function TipologieCosti() {
                 </div>
                 <div className="text-right">
                   <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">Da</p>
-                  <p className="font-serif text-4xl text-brand">€ {v.priceFrom}</p>
+                  <p className="font-serif text-4xl text-brand">{formatEuro(v.priceFrom)}</p>
                 </div>
               </div>
 
               <p className="mt-4 text-sm text-muted-foreground">{v.description}</p>
 
+              <p className="mt-3 text-xs text-muted-foreground">
+                Tariffa minima stabilita da: {v.enteCompetente}
+              </p>
+
               <ul className="mt-6 space-y-2">
                 {v.items.map((i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm">
+                  <li key={i.name} className="flex items-start gap-2 text-sm">
                     <Check size={16} className="mt-0.5 flex-shrink-0 text-brand" />
-                    <span>{i}</span>
+                    <span>
+                      {i.name} — {formatEuro(i.price)}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -57,6 +64,12 @@ export default function TipologieCosti() {
             </article>
           ))}
         </div>
+
+        <p className="mt-10 max-w-3xl mx-auto text-center text-xs text-muted-foreground/80 leading-relaxed">
+          I prezzi indicati sono le tariffe minime ufficiali stabilite dall'ente competente per
+          ciascuna tipologia di visura (Agenzia delle Entrate, Camera di Commercio o ACI).
+          Il preventivo finale verrà comunicato dopo la verifica della richiesta.
+        </p>
 
         <div className="mt-16 rounded-2xl border border-border bg-card/30 p-8 text-center">
           <h3 className="font-serif text-2xl">Hai una richiesta particolare?</h3>
