@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import { VisuraForm } from "@/components/VisuraForm";
 import { VISURE_TYPES, SITE } from "@/lib/site";
 import { formatEuro } from "@/lib/utils";
-import { ArrowRight, Clock, ShieldCheck, Sparkles, FileSearch, Building2, Landmark, Car } from "lucide-react";
-
+import { ArrowRight, Clock, ShieldCheck, Sparkles, FileSearch, Building2, Landmark, Car, HelpCircle } from "lucide-react";
 const ICONS = {
   catastale: FileSearch,
   ipotecaria: Landmark,
   camerale: Building2,
   pra: Car,
+  varie: HelpCircle,
 } as const;
 
 export default function Home() {
