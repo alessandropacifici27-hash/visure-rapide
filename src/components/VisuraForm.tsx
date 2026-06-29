@@ -205,7 +205,7 @@ Totale stimato: ${totaleTesto}`;
         >
           <Send size={16} /> {isSubmitting ? "Invio in corso..." : "Invia richiesta"}
         </button>
-        
+        <a
           href={`https://wa.me/${SITE.whatsapp}`}
           target="_blank"
           rel="noreferrer"
