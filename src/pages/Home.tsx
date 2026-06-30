@@ -59,6 +59,23 @@ export default function Home() {
             <span className="flex items-center gap-2"><ShieldCheck size={14} className="text-brand"/> Dati ufficiali</span>
             <span className="flex items-center gap-2"><Sparkles size={14} className="text-brand"/> Assistenza dedicata</span>
           </div>
+
+          <div className="mt-8 grid grid-cols-2 items-center justify-center gap-2 sm:flex sm:flex-wrap">
+            {[
+              { emoji: "⚡", testo: "Risposta in giornata" },
+              { emoji: "📄", testo: "Documenti ufficiali" },
+              { emoji: "🔒", testo: "Pagamento sicuro" },
+              { emoji: "💬", testo: "Assistenza via WhatsApp" },
+            ].map((item) => (
+              <div
+                key={item.testo}
+                className="flex items-center gap-2 rounded-full sm:border sm:border-white/10 sm:bg-white/5 sm:px-3 sm:py-1"
+              >
+                <span className="flex-shrink-0 text-base leading-none">{item.emoji}</span>
+                <span className="whitespace-nowrap font-sans text-[11px] font-medium text-muted-foreground">{item.testo}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -93,25 +110,6 @@ export default function Home() {
               </div>
             );
           })}
-        </div>
-      </section>
-
-      {/* COME FUNZIONA */}
-      <section className="border-y border-border/40 bg-card/30">
-        <div className="mx-auto max-w-6xl px-6 py-20">
-          <div className="grid gap-12 md:grid-cols-3">
-            {[
-              { n: "01", t: "Compila il form", d: "Inserisci i dati relativi alla visura che desideri ottenere." },
-              { n: "02", t: "Ti contattiamo", d: "Confermiamo i dettagli, ti inviamo preventivo e modalità di pagamento." },
-              { n: "03", t: "Ricevi la visura", d: "Documento ufficiale via email in formato PDF, in tempi rapidissimi." },
-            ].map((s) => (
-              <div key={s.n}>
-                <p className="font-serif text-5xl text-brand/70">{s.n}</p>
-                <h3 className="mt-3 font-serif text-2xl">{s.t}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{s.d}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

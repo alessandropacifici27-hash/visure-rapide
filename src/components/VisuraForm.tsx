@@ -14,13 +14,14 @@ export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
   const [submitted, setSubmitted] = useState(false);
   const [sendError, setSendError] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationError, setValidationError] = useState("");
   const [phone2, setSp2] = useState(false);
   const [form, setForm] = useState({
     nome: "",
     email: "",
     deliveryPreference: "email" as "email" | "whatsapp",
     telefono: "",
-    tipo: defaultType ?? VISURE_TYPES[0].slug,
+    tipo: defaultType ?? "",
     dettagli: "",
     note: "",
   });
@@ -29,21 +30,22 @@ export function VisuraForm({ defaultType }: { defaultType?: VisuraSlug }) {
   const basePrice = tipoSelezionato?.priceFrom ?? null;
   const totalPrice = basePrice === null ? null : basePrice + (phone2 ? 5 : 0);
 
-  const update = (k: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
-    setForm({ ...form, [k]: e.target.value });
+  const update =
+    (k: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+      setForm({ ...form, [k]: e.target.value });
 
   const buildDettagliRichiesta = () => {
-    const tipo = tipoSelezionato?.label ?? form.tipo;
+    const tipo = tipoSelezionato?.label ?? form.tipo ?? "Non specificato";
     const deliveryLabel = form.deliveryPreference === "email" ? "Email" : "WhatsApp";
-    const spiegazione = phone2
-      ? "Sì (+€5) — orario telefonico da concordare in giornata"
-      : "No";
-    const totaleTesto = totalPrice === null ? "Da definire in base alla richiesta" : formatEuro(totalPrice);
+    const spiegazione = phone2 ? "Sì (+€5) — orario telefonico da concordare in giornata" : "No";
+    const totaleTesto =
+      totalPrice === null ? "Da definire in base alla richiesta" : formatEuro(totalPrice);
     return `Tipo di visura: ${tipo}
 Preferenza di consegna: ${deliveryLabel}
 
 Dati per la visura:
-${form.dettagli}
+${form.dettagli || "—"}
 
 Note:
 ${form.note || "—"}
@@ -55,6 +57,29 @@ Totale stimato: ${totaleTesto}`;
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setValidationError("");
+
+    // Almeno un recapito (email o telefono)
+    const hasContact = form.email.trim() !== "" || form.telefono.trim() !== "";
+    // Almeno un contenuto (tipo visura, dettagli o note)
+    const hasContent =
+      form.tipo.trim() !== "" || form.dettagli.trim() !== "" || form.note.trim() !== "";
+
+    if (!form.nome.trim()) {
+      setValidationError("Inserisci il tuo nome.");
+      return;
+    }
+    if (!hasContact) {
+      setValidationError("Inserisci almeno un recapito: email oppure telefono.");
+      return;
+    }
+    if (!hasContent) {
+      setValidationError(
+        "Indica almeno una informazione: tipo di visura, dati richiesta o note."
+      );
+      return;
+    }
+
     if (isSubmitting) return;
     setIsSubmitting(true);
     setSendError(false);
@@ -68,23 +93,22 @@ Totale stimato: ${totaleTesto}`;
         EMAILJS_TEMPLATE_NOTIFICA,
         {
           nome_cliente: form.nome,
-          email_cliente: form.email,
-          telefono_cliente: form.telefono,
+          email_cliente: form.email || "Non fornita",
+          telefono_cliente: form.telefono || "Non fornito",
           preferenza_consegna: deliveryLabel,
           dettagli_richiesta: dettagliRichiesta,
         },
         { publicKey: EMAILJS_PUBLIC_KEY }
       );
 
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_BENVENUTO,
-        {
-          nome_cliente: form.nome,
-          email_cliente: form.email,
-        },
-        { publicKey: EMAILJS_PUBLIC_KEY }
-      );
+      if (form.email.trim() !== "") {
+        await emailjs.send(
+          EMAILJS_SERVICE_ID,
+          EMAILJS_TEMPLATE_BENVENUTO,
+          { nome_cliente: form.nome, email_cliente: form.email },
+          { publicKey: EMAILJS_PUBLIC_KEY }
+        );
+      }
 
       setSubmitted(true);
     } catch (err) {
@@ -107,14 +131,22 @@ Totale stimato: ${totaleTesto}`;
         </h3>
         <p className="mt-3 text-sm text-muted-foreground">
           {sendError
-            ? "Richiesta ricevuta. Se non ricevi una nostra conferma entro pochi minuti, scrivici direttamente su WhatsApp."
+            ? "Richiesta ricevuta. Se non ricevi conferma entro pochi minuti, scrivici su WhatsApp."
             : "Ti abbiamo inviato una email di conferma. La elaboreremo entro 20-30 minuti."}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
-          <a href={waLink} target="_blank" rel="noreferrer" className="rounded-full bg-brand px-6 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90">
+          <a
+            href={waLink}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full bg-brand px-6 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+          >
             Scrivi su WhatsApp
           </a>
-          <button onClick={() => setSubmitted(false)} className="rounded-full border border-border px-6 py-2.5 text-sm text-muted-foreground transition hover:border-brand hover:text-brand">
+          <button
+            onClick={() => { setSubmitted(false); setSendError(false); }}
+            className="rounded-full border border-border px-6 py-2.5 text-sm text-muted-foreground transition hover:border-brand hover:text-brand"
+          >
             Nuova richiesta
           </button>
         </div>
@@ -123,14 +155,30 @@ Totale stimato: ${totaleTesto}`;
   }
 
   return (
-    <form onSubmit={onSubmit} className="rounded-2xl border border-border bg-card/60 p-6 backdrop-blur-md md:p-10 shadow-[var(--shadow-elegant)]">
+    <form
+      onSubmit={onSubmit}
+      className="rounded-2xl border border-border bg-card/60 p-6 shadow-[var(--shadow-elegant)] backdrop-blur-md md:p-10"
+    >
       <div className="grid gap-5 md:grid-cols-2">
         <Field label="Nome e cognome *">
-          <input required value={form.nome} onChange={update("nome")} className="input" placeholder="Mario Rossi" />
+          <input
+            value={form.nome}
+            onChange={update("nome")}
+            className="input"
+            placeholder="Mario Rossi"
+          />
         </Field>
-        <Field label="Email *">
-          <input required type="email" value={form.email} onChange={update("email")} className="input" placeholder="mario@email.it" />
+
+        <Field label="Email">
+          <input
+            type="email"
+            value={form.email}
+            onChange={update("email")}
+            className="input"
+            placeholder="mario@email.it"
+          />
         </Field>
+
         <Field label="Come preferisci ricevere le visure?" full>
           <div className="flex flex-wrap gap-2">
             {(
@@ -154,19 +202,29 @@ Totale stimato: ${totaleTesto}`;
             ))}
           </div>
         </Field>
-        <Field label="Telefono *">
-          <input required value={form.telefono} onChange={update("telefono")} className="input" placeholder="+39 ..." />
+
+        <Field label="Telefono">
+          <input
+            value={form.telefono}
+            onChange={update("telefono")}
+            className="input"
+            placeholder="+39 ..."
+          />
         </Field>
-        <Field label="Tipo di visura *">
-          <select required value={form.tipo} onChange={update("tipo")} className="input">
+
+        <Field label="Tipo di visura">
+          <select value={form.tipo} onChange={update("tipo")} className="input">
+            <option value="">— Seleziona (opzionale) —</option>
             {VISURE_TYPES.map((v) => (
-              <option key={v.slug} value={v.slug}>{v.label}</option>
+              <option key={v.slug} value={v.slug}>
+                {v.label}
+              </option>
             ))}
           </select>
         </Field>
-        <Field label="Dati per la visura *" full>
+
+        <Field label="Dati per la visura" full>
           <textarea
-            required
             value={form.dettagli}
             onChange={update("dettagli")}
             rows={4}
@@ -174,8 +232,15 @@ Totale stimato: ${totaleTesto}`;
             placeholder="Es. dati catastali (foglio, particella, sub.), codice fiscale, partita IVA, targa veicolo, denominazione società ecc."
           />
         </Field>
+
         <Field label="Note aggiuntive" full>
-          <textarea value={form.note} onChange={update("note")} rows={2} className="input" placeholder="Eventuali precisazioni" />
+          <textarea
+            value={form.note}
+            onChange={update("note")}
+            rows={2}
+            className="input"
+            placeholder="Eventuali precisazioni"
+          />
         </Field>
       </div>
 
@@ -186,15 +251,28 @@ Totale stimato: ${totaleTesto}`;
           onCheckedChange={(c) => setSp2(c === true)}
           className="mt-0.5"
         />
-        <label htmlFor="spiegazione" className="cursor-pointer text-sm leading-relaxed text-foreground">
-          <span className="font-medium">Richiedi spiegazione telefonica</span> — ricevi una chiamata per spiegarti i contenuti della visura.
+        <label
+          htmlFor="spiegazione"
+          className="cursor-pointer text-sm leading-relaxed text-foreground"
+        >
+          <span className="font-medium">Richiedi spiegazione telefonica</span> — ricevi una
+          chiamata per spiegarti i contenuti della visura.
           <br />
-          <span className="text-xs text-muted-foreground">Orario in giornata da concordare · supplemento € 5</span>
+          <span className="text-xs text-muted-foreground">
+            Orario in giornata da concordare · supplemento € 5
+          </span>
         </label>
       </div>
 
+      {validationError && (
+        <p className="mt-4 rounded-lg border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">
+          {validationError}
+        </p>
+      )}
+
       <p className="mt-5 text-xs text-muted-foreground">
-        Inviando il form accetti di essere contattato/a per evadere la richiesta. I tuoi dati non vengono usati a fini commerciali.
+        Inviando il form accetti di essere contattato/a per evadere la richiesta. I tuoi dati
+        non vengono usati a fini commerciali. * = Nome obbligatorio, più almeno un recapito.
       </p>
 
       <div className="mt-6 flex flex-wrap gap-3">
@@ -218,7 +296,7 @@ Totale stimato: ${totaleTesto}`;
       <style>{`
         .input {
           width: 100%;
-          background: oklch(0.18 0.012 240);
+          background: oklch(0.14 0.010 240);
           border: 1px solid var(--border);
           border-radius: 0.5rem;
           padding: 0.7rem 0.9rem;
@@ -231,13 +309,21 @@ Totale stimato: ${totaleTesto}`;
           border-color: var(--brand);
           box-shadow: 0 0 0 3px oklch(0.78 0.13 65 / 0.18);
         }
-        .input::placeholder { color: oklch(0.55 0.012 80); }
+        .input::placeholder { color: oklch(0.50 0.010 80); }
       `}</style>
     </form>
   );
 }
 
-function Field({ label, full, children }: { label: string; full?: boolean; children: React.ReactNode }) {
+function Field({
+  label,
+  full,
+  children,
+}: {
+  label: string;
+  full?: boolean;
+  children: React.ReactNode;
+}) {
   return (
     <label className={`flex flex-col gap-1.5 ${full ? "md:col-span-2" : ""}`}>
       <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</span>
