@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { SiteChrome } from "@/components/SiteChrome";
+import { CookieBanner } from "@/components/CookieBanner";
 import Home from "@/pages/Home";
 import ChiSiamo from "@/pages/ChiSiamo";
 import TipologieCosti from "@/pages/TipologieCosti";
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/contatti" element={<Contatti />} />
         </Routes>
       </SiteChrome>
+      <CookieBanner />
     </BrowserRouter>
   );
 }
