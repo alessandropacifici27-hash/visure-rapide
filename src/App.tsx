@@ -5,6 +5,7 @@ import Home from "@/pages/Home";
 import ChiSiamo from "@/pages/ChiSiamo";
 import TipologieCosti from "@/pages/TipologieCosti";
 import Contatti from "@/pages/Contatti";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/chi-siamo" element={<ChiSiamo />} />
           <Route path="/tipologie-e-costi" element={<TipologieCosti />} />
           <Route path="/contatti" element={<Contatti />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
       </SiteChrome>
       <CookieBanner />

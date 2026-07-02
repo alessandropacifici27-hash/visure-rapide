@@ -47,6 +47,7 @@ const PAYMENT_METHODS = [
   { label: "PayPal" },
   { label: "Apple Pay" },
   { label: "Google Pay" },
+  { label: "Klarna" },
 ];
 
 const NAV = [
@@ -275,6 +276,11 @@ export function SiteFooter() {
                     <span className="text-white/80 ml-0.5">Pay</span>
                   </span>
                 )}
+                {m.label === "Klarna" && (
+                  <span className="font-bold text-[11px] tracking-tight" style={{color:"#FFB3C7", backgroundColor:"#17120E", padding:"1px 3px", borderRadius:"3px"}}>
+                    klarna
+                  </span>
+                )}
               </div>
             ))}
           </div>
@@ -283,6 +289,10 @@ export function SiteFooter() {
 
       <div className="border-t border-border/40 px-5 py-5 text-center text-xs text-muted-foreground">
         © {new Date().getFullYear()} {SITE.domain} — Tutti i diritti riservati
+        {" · "}
+        <Link to="/privacy-policy" className="hover:text-brand transition-colors">
+          Privacy Policy
+        </Link>
       </div>
     </footer>
   );

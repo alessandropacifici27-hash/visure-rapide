@@ -49,8 +49,12 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="relative isolate overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-background via-background to-brand/10" />
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,oklch(0.80_0.13_65/0.08),transparent)]" />
+        <div
+          className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+        />
+        <div className="absolute inset-0 -z-10 bg-background/80" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/60 to-background" />
 
         <div className="mx-auto flex min-h-[92dvh] max-w-4xl flex-col items-center justify-center px-5 py-20 text-center md:py-32">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/5 px-4 py-1.5 text-[11px] uppercase tracking-[0.28em] text-brand">
