@@ -117,10 +117,10 @@ export default function Home() {
                 className="relative rounded-2xl border border-border/60 bg-gradient-to-b from-card to-card/40 p-6 shadow-sm"
               >
                 <div className="mb-4 flex items-center gap-3">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand/10 font-serif text-sm font-bold text-brand">
+                  <span className="font-serif text-5xl font-bold leading-none text-brand/80">
                     {i + 1}
                   </span>
-                  <span className="text-2xl">{s.emoji}</span>
+                  <span className="text-3xl">{s.emoji}</span>
                 </div>
                 <h3 className="font-serif text-xl">{s.titolo}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
