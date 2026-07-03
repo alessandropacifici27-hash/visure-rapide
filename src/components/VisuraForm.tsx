@@ -105,7 +105,12 @@ Totale stimato: ${totaleTesto}`;
         await emailjs.send(
           EMAILJS_SERVICE_ID,
           EMAILJS_TEMPLATE_BENVENUTO,
-          { nome_cliente: form.nome, email_cliente: form.email },
+          {
+            nome_cliente: form.nome,
+            email_cliente: form.email,
+            from_name: "VisureRapide",
+            reply_to: "info@visurerapide.it",
+          },
           { publicKey: EMAILJS_PUBLIC_KEY }
         );
       }
@@ -259,7 +264,7 @@ Totale stimato: ${totaleTesto}`;
           chiamata per spiegarti i contenuti della visura.
           <br />
           <span className="text-xs text-muted-foreground">
-            Orario in giornata da concordare · supplemento € 5
+            Orario in giornata da concordare · € 5 fino a 5 visure · oltre 5 visure ulteriori € 5
           </span>
         </label>
       </div>
