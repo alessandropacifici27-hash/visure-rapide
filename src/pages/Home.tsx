@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { VisuraForm } from "@/components/VisuraForm";
 import { VISURE_TYPES, SITE } from "@/lib/site";
 import { formatEuro } from "@/lib/utils";
+import heroBg from "@/assets/hero-bg.webp";
 import {
   ArrowRight, Clock, ShieldCheck, Sparkles,
   FileSearch, Building2, Landmark, Car, HelpCircle,
@@ -48,13 +49,17 @@ export default function Home() {
   return (
     <>
       {/* HERO */}
-      <section className="relative isolate overflow-hidden">
-        <div
-          className="absolute inset-0 -z-20 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/hero-bg.jpg')" }}
+      <section className="relative isolate overflow-hidden min-h-[92dvh] flex items-center justify-center">
+        <img
+          src={heroBg}
+          alt=""
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover object-center -z-20"
+          aria-hidden="true"
         />
-        <div className="absolute inset-0 -z-10 bg-background/80" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+        <div className="absolute inset-0 -z-10 bg-hero-overlay" />
 
         <div className="mx-auto flex min-h-[92dvh] max-w-4xl flex-col items-center justify-center px-5 py-20 text-center md:py-32">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/5 px-4 py-1.5 text-[11px] uppercase tracking-[0.28em] text-brand">
