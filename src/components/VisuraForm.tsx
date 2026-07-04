@@ -137,7 +137,15 @@ Totale stimato: ${totaleTesto}`;
         <p className="mt-3 text-sm text-muted-foreground">
           {sendError
             ? "Richiesta ricevuta. Se non ricevi conferma entro pochi minuti, scrivici su WhatsApp."
-            : "Ti abbiamo inviato una email di conferma. La elaboreremo entro 20-30 minuti."}
+            : (
+              <>
+                Ti abbiamo inviato una email di conferma. La elaboreremo entro 20–30 minuti.
+                <br />
+                <span className="mt-2 block text-xs text-muted-foreground/70">
+                  📬 Non trovi la mail? Controlla la cartella <strong>Spam</strong> o <strong>Posta indesiderata</strong> — a volte i filtri automatici la spostano lì.
+                </span>
+              </>
+            )}
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-3">
           <a
