@@ -2,10 +2,10 @@ export const SITE = {
   name: "Visure Rapide",
   domain: "visurerapide.it",
   tagline: "Visure professionali, evase rapidamente",
-  phone: "+39 379 3511586",
+  phone: "+39 379 3906160",
   phoneLandline: "+39 02 9289 2296",
-  whatsapp: "393793511586",
-  telegram: "393793511586",
+  whatsapp: "393793906160",
+  telegram: "393793906160",
   email: "info@visurerapide.it",
   hours: "Lun–Ven 9:00–18:00",
 };
