@@ -4,6 +4,7 @@ import { CookieBanner } from "@/components/CookieBanner";
 import Home from "@/pages/Home";
 import ChiSiamo from "@/pages/ChiSiamo";
 import TipologieCosti from "@/pages/TipologieCosti";
+import GuidaVisure from "@/pages/GuidaVisure";
 import Contatti from "@/pages/Contatti";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 
@@ -15,6 +16,7 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/chi-siamo" element={<ChiSiamo />} />
           <Route path="/tipologie-e-costi" element={<TipologieCosti />} />
+          <Route path="/guida-alle-visure" element={<GuidaVisure />} />
           <Route path="/contatti" element={<Contatti />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         </Routes>
