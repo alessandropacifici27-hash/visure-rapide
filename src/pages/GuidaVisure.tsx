@@ -142,6 +142,15 @@ export default function GuidaVisure() {
             valutare la solidità patrimoniale di un'azienda o di una persona, o in
             ambito giudiziario.
           </p>
+          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+            Se dalla visura ipotecaria risulta la dicitura "Presenza Titolo Telematico",
+            puoi richiedere anche il <strong className="text-foreground">titolo
+            telematico</strong>: la copia integrale dell'atto notarile originale
+            (compravendita, mutuo, donazione) depositato in Conservatoria, con tutte le
+            clausole e condizioni — non solo il riepilogo sintetico della nota. È
+            disponibile per le formalità registrate dal 2012 in poi, con una tassa
+            ipotecaria di 8€ prevista dall'Agenzia delle Entrate.
+          </p>
           <Link
             to="/#richiedi"
             className="mt-6 inline-flex items-center gap-2 rounded-full border border-brand/50 px-5 py-2 text-xs uppercase tracking-[0.16em] text-brand transition hover:bg-brand hover:text-primary-foreground"

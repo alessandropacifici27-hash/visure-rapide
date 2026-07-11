@@ -38,7 +38,10 @@ export const VISURE_TYPES = [
       { name: "Ispezione ipotecaria (consultazione telematica)", price: 6.30 },
       { name: "Ispezione ipotecaria nazionale", price: 19 },
       { name: "Nota di trascrizione", price: 4 },
-      { name: "Atto pubblico in PDF (trascritto o iscritto in Conservatoria)", price: 8 },
+      {
+        name: "Titolo telematico – copia integrale dell'atto notarile (per formalità dal 2012 in poi, se disponibile)",
+        price: 8,
+      },
     ],
     priceFrom: 4,
     enteCompetente: "Agenzia delle Entrate",
