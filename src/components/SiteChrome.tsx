@@ -285,6 +285,21 @@ export function SiteFooter() {
               </div>
             ))}
           </div>
+
+          {/* TRUSTPILOT */}
+          <a
+            href="https://it.trustpilot.com/review/visurerapide.it"
+            target="_blank"
+            rel="noreferrer"
+            title="Il nostro profilo su Trustpilot"
+            aria-label="Il nostro profilo su Trustpilot"
+            className="mt-4 inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-white/5 px-2.5 py-1.5 transition hover:border-brand/50"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#00b67a" aria-hidden="true">
+              <path d="M12 1.5l2.94 6.36 6.96.75-5.16 4.77 1.44 6.87L12 16.62l-6.18 3.63 1.44-6.87L2.1 8.61l6.96-.75L12 1.5z" />
+            </svg>
+            <span className="text-[11px] font-semibold tracking-tight text-white/80">Trustpilot</span>
+          </a>
         </div>
       </div>
 
