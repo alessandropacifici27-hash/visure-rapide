@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Cookie, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const COOKIE_KEY = "visurerapide_cookie_consent";
 
@@ -39,7 +40,8 @@ export function CookieBanner() {
             <div className="flex items-center gap-3">
               <Cookie size={16} className="shrink-0 text-brand" />
               <p className="flex-1 text-xs text-muted-foreground">
-                Utilizziamo cookie tecnici necessari al funzionamento del sito. Non utilizziamo cookie di profilazione di terze parti.
+                Utilizziamo cookie tecnici necessari al funzionamento del sito. Non utilizziamo cookie di profilazione di terze parti senza consenso.{" "}
+                <Link to="/cookie-policy" className="text-brand hover:underline">Cookie Policy</Link>
               </p>
               <div className="flex shrink-0 gap-2">
                 <button

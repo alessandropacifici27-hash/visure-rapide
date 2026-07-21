@@ -7,6 +7,7 @@ import TipologieCosti from "@/pages/TipologieCosti";
 import GuidaVisure from "@/pages/GuidaVisure";
 import Contatti from "@/pages/Contatti";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import CookiePolicy from "@/pages/CookiePolicy";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/guida-alle-visure" element={<GuidaVisure />} />
           <Route path="/contatti" element={<Contatti />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
         </Routes>
       </SiteChrome>
       <CookieBanner />

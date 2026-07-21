@@ -12,7 +12,7 @@ export default function PrivacyPolicy() {
           <p>
             Il titolare del trattamento dei dati personali è Alessandro Pacifici, raggiungibile
             all'indirizzo email <a href="mailto:info@visurerapide.it" className="text-brand hover:underline">info@visurerapide.it</a> e
-            al numero WhatsApp +39 379 3511586.
+            al numero WhatsApp +39 379 3906160.
           </p>
         </div>
 
@@ -63,8 +63,9 @@ export default function PrivacyPolicy() {
             I dati sono trattati con strumenti informatici, nel rispetto delle misure di
             sicurezza previste dal GDPR. Non vengono ceduti a terzi per finalità commerciali
             né comunicati a soggetti esterni, salvo i fornitori tecnici strettamente necessari
-            all'erogazione del servizio (quali il servizio di invio email EmailJS) e salvo
-            eventuali obblighi di legge.
+            all'erogazione del servizio (quali il servizio di invio email EmailJS e il
+            servizio di pagamento Stripe per la gestione degli incassi) e salvo eventuali
+            obblighi di legge.
           </p>
           <p className="mt-3">
             I dati vengono conservati per il tempo strettamente necessario all'esecuzione del

@@ -309,6 +309,10 @@ export function SiteFooter() {
         <Link to="/privacy-policy" className="hover:text-brand transition-colors">
           Privacy Policy
         </Link>
+        {" · "}
+        <Link to="/cookie-policy" className="hover:text-brand transition-colors">
+          Cookie Policy
+        </Link>
       </div>
     </footer>
   );
