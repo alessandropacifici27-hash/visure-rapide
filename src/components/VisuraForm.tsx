@@ -115,6 +115,22 @@ Totale stimato: ${totaleTesto}`;
         );
       }
 
+      // Evento di conversione GA4 -> importato come conversione in Google Ads
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "manual_event_SUBMIT_LEAD_FORM", {
+          event_category: "form",
+          event_label: deliveryLabel,
+        });
+      }
+
+      // Evento standard "Lead" per Meta Pixel
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "Lead", {
+          content_name: "Richiesta visura",
+          delivery_preference: deliveryLabel,
+        });
+      }
+
       setSubmitted(true);
     } catch (err) {
       console.error("Errore invio EmailJS:", err);
