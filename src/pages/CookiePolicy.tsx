@@ -45,9 +45,10 @@ export default function CookiePolicy() {
 
           <h3 className="mb-2 mt-5 font-serif text-lg text-foreground">2.2 Cookie analitici e di misurazione</h3>
           <p>
-            Utilizziamo Google Analytics 4 per raccogliere informazioni statistiche aggregate
-            sull'utilizzo del sito. Questi cookie sono installati solo previo consenso
-            dell'utente.
+            Utilizziamo Google Analytics 4 e Microsoft Clarity per raccogliere informazioni
+            statistiche aggregate sull'utilizzo del sito, incluse mappe di calore e
+            registrazioni anonime di sessione per capire come i visitatori usano le pagine.
+            Questi cookie sono installati solo previo consenso dell'utente.
           </p>
           <ul className="mt-3 list-inside list-disc space-y-1 pl-2">
             <li>
@@ -57,6 +58,11 @@ export default function CookiePolicy() {
             <li>
               <strong className="text-foreground">_ga_*</strong>: utilizzato per mantenere lo
               stato della sessione. Durata: 2 anni.
+            </li>
+            <li>
+              <strong className="text-foreground">_clck / _clsk</strong> (Microsoft Clarity):
+              utilizzati per registrare in forma anonima le interazioni con il sito (click,
+              scorrimento). Durata: fino a 1 anno.
             </li>
           </ul>
 
