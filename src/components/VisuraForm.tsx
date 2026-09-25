@@ -55,6 +55,14 @@ Spiegazione telefonica richiesta: ${spiegazione}
 Totale stimato: ${totaleTesto}`;
   };
 
+  const withTimeout = <T,>(promise: Promise<T>, ms: number): Promise<T> =>
+    Promise.race([
+      promise,
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error("Timeout invio email")), ms)
+      ),
+    ]);
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setValidationError("");
@@ -88,31 +96,44 @@ Totale stimato: ${totaleTesto}`;
     const dettagliRichiesta = buildDettagliRichiesta();
 
     try {
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_NOTIFICA,
-        {
-          nome_cliente: form.nome,
-          email_cliente: form.email || "Non fornita",
-          telefono_cliente: form.telefono || "Non fornito",
-          preferenza_consegna: deliveryLabel,
-          dettagli_richiesta: dettagliRichiesta,
-        },
-        { publicKey: EMAILJS_PUBLIC_KEY }
-      );
-
-      if (form.email.trim() !== "") {
-        await emailjs.send(
+      // Notifica a noi: è l'unica email davvero critica (è così che riceviamo il lead).
+      // Timeout di sicurezza a 15s: se il server email è lento/irraggiungibile,
+      // il form si sblocca comunque e non resta mai incastrato su "Invio in corso...".
+      await withTimeout(
+        emailjs.send(
           EMAILJS_SERVICE_ID,
-          EMAILJS_TEMPLATE_BENVENUTO,
+          EMAILJS_TEMPLATE_NOTIFICA,
           {
             nome_cliente: form.nome,
-            email_cliente: form.email,
-            from_name: "VisureRapide",
-            reply_to: "info@visurerapide.it",
+            email_cliente: form.email || "Non fornita",
+            telefono_cliente: form.telefono || "Non fornito",
+            preferenza_consegna: deliveryLabel,
+            dettagli_richiesta: dettagliRichiesta,
           },
           { publicKey: EMAILJS_PUBLIC_KEY }
-        );
+        ),
+        15000
+      );
+
+      // Email di benvenuto al cliente: "best effort", NON bloccante.
+      // Se il suo provider (es. Libero) la rifiuta o è lento, il cliente non deve
+      // restare bloccato in attesa: la richiesta risulta comunque inviata subito.
+      if (form.email.trim() !== "") {
+        emailjs
+          .send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_BENVENUTO,
+            {
+              nome_cliente: form.nome,
+              email_cliente: form.email,
+              from_name: "VisureRapide",
+              reply_to: "info@visurerapide.it",
+            },
+            { publicKey: EMAILJS_PUBLIC_KEY }
+          )
+          .catch((err) => {
+            console.error("Email di benvenuto al cliente non recapitata:", err);
+          });
       }
 
       // Evento di conversione GA4 -> importato come conversione in Google Ads
